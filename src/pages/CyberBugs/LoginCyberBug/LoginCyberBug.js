@@ -9,6 +9,7 @@ import { CyberBugs_login } from '../../../redux/action/ToDoListAction';
 import { type } from '@testing-library/user-event/dist/type';
 import { USER_SIGNIN_API } from '../../../redux/type/CyberBugs/CyberBugs';
  import { signinCyberbugsAction } from '../../../redux/action/CyberBugsAction';
+import { useNavigate } from 'react-router-dom';
  function LoginCyberBug(props) {
     const {
         values,
@@ -21,7 +22,7 @@ import { USER_SIGNIN_API } from '../../../redux/type/CyberBugs/CyberBugs';
     return (
         <form onSubmit={handleSubmit} className="container" style={{ height: window.innerHeight }} >
         <div className="d-flex flex-column justify-content-center align-items-center" style={{ height: window.innerHeight }} >
-            <h3 className="text-center" style={{fontWeight:300,fontSize:35}}>{props.displayName}</h3>
+            <h3 className="text-center" style={{fontWeight:300,fontSize:35}}>Login CyberBugs</h3>
 
             <div className=" mt-3" >
                 <Input onChange={handleChange} style={{ width: '100%', minWidth: 300 }} name="email" size="large" placeholder="email" prefix={<UserOutlined />} />

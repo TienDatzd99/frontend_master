@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // import LoadingComponent from './components/GlobalSetting/LoadingComponent/LoadingComponent';
 import Header from './components/Home/Header/Header';
@@ -19,10 +19,15 @@ import { HomeTemplate } from './templates/HomeTemplate/HomeTemplate';
 import PageNOtFound from './pages/PageNotFound/PageNotFound';
 import UserLoginTemplate from './templates/HomeTemplate/UserLoginTemplate';
 import LoginCyberBug from './pages/CyberBugs/LoginCyberBug/LoginCyberBug';
+import  { CyberbugsTemplate } from './templates/HomeTemplate/CyberbugsTemplate';
+import indexCyberBugs from './redux/sagas/Cyberbugs/indexCyberBugs';
+import CreateProject from './pages/CyberBugs/CreateProject/CreateProject'
+import ProjectManagement from './pages/CyberBugs/ProjectManagement.js/ProjectManagement';
 
 function App() {
+  
   return (
-    <Router>
+    <Router >
     
       <Modal />
       <Routes>
@@ -33,9 +38,12 @@ function App() {
         <Route path='/detail/:id' element={<HomeTemplate Component={Detail} />} />
         <Route path='/profile' element={<HomeTemplate Component={Profile} />} />
         <Route path='/todolistrfc' element={<HomeTemplate Component={TodolistRFC} />} />
+        <Route path='/cyberbugs' element={<CyberbugsTemplate Component={indexCyberBugs} />} />
         <Route path='/todolist' element={<HomeTemplate Component={Todolist} />} />
         <Route path='/todolistredux' element={<HomeTemplate Component={ToDoListRedux} />} />
-        {/* <Route path='/todolistsaga' element={<HomeTemplate Component={BaiTapToDoListSaga} />} /> */}
+       
+        <Route path='/createproject' element={<CyberbugsTemplate Component={CreateProject} />} />
+        <Route path='/projectmanagement' element={<CyberbugsTemplate Component={ProjectManagement} />} />
         <Route path='/demohocmodal' element={<HomeTemplate Component={DemoHOCModal} />} />
         <Route path='/' element={<HomeTemplate Component={Home} />} />
         <Route path="*" element={<HomeTemplate Component={PageNOtFound} />} />

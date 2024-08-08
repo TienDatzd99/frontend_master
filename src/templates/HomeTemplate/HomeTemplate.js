@@ -5,7 +5,7 @@ import Header from '../../components/Home/Header/Header';
 export const HomeTemplate = ({ Component }) => {
   return (
     <>
-      <Header />
+      <Header/>
       <Component />
       <Outlet />
     </>

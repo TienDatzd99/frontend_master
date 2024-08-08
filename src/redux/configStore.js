@@ -4,13 +4,17 @@ import ToDoListReducer from './reducers/ToDoListReducer';
 import { ModalReducer } from './reducers/ModalReducer';
 import createSagaMiddleware from 'redux-saga';
 import { rootSaga } from './sagas/rootSaga';
+import { ProjectCategoryReducer } from './reducers/ProjectCategoryRudecer';
+import { ProjectCyberBugsReducer } from './reducers/ProjectCyberBugsReducer';
 
 
 const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers({
-   ToDoListReducer,
-   ModalReducer
+  //  ToDoListReducer,
+   ModalReducer,
+   ProjectCategoryReducer,
+   ProjectCyberBugsReducer
 })
 
 
