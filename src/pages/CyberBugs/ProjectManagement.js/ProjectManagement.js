@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import { Table, Tag, Space, Button } from 'antd';
 import { FormOutlined, DeleteOutlined } from '@ant-design/icons'
 import parse from 'html-react-parser';
 import { useDispatch, useSelector } from 'react-redux';
-import { GET_PROJECT_LIST } from '../../../redux/type/CyberBugs/CyberBugs';
+import { GET_PROJECT_LIST_SAGA } from '../../../redux/type/CyberBugs/CyberBugs';
+import FormEditProject from '../Form/FormEditProject/FormEditProject';
 
 
 
@@ -11,7 +12,7 @@ import { GET_PROJECT_LIST } from '../../../redux/type/CyberBugs/CyberBugs';
 
 
 export default function ProjectManagement(props) {
-    const projectList = useSelector(state => state.ProjectCyberBugsReducer.projtectList)
+    const projectList = useSelector(state => state.ProjectCyberBugsReducer.projectList)
     const dispatch = useDispatch();
 
 
@@ -19,9 +20,9 @@ export default function ProjectManagement(props) {
         filteredInfo: null,
         sortedInfo: null,
     });
-    // useEffect(() => {
-    //     dispatch({ type: GET_PROJECT_LIST })
-    // }, [])
+    useEffect(() => {
+        dispatch({ type: GET_PROJECT_LIST_SAGA })
+    }, [])
 
 
     const handleChange = (pagination, filters, sorter) => {
@@ -63,26 +64,46 @@ export default function ProjectManagement(props) {
             title: 'id',
             dataIndex: 'id',
             key: 'id',
-
+            sorter: (a, b) => a.id - b.id,
+            sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order,
+            ellipsis: true,
 
         },
         {
             title: 'projectName',
             dataIndex: 'projectName',
             key: 'projectName',
+            sorter: (a, b) => a.projectName.length - b.projectName.length,
+            sortOrder: sortedInfo.columnKey === 'projectName' && sortedInfo.order,
+            ellipsis: true,
+        },
+        // {
+        //     title: 'description',
+        //     dataIndex: 'description',
+        //     key: 'description',
+        //     render: (text, record, index) => {
+        //         let contentJSX = parse(text);
 
+        //         return <div>
+        //             {contentJSX}
+        //         </div>
+        //     }
+        // },
+        {
+            title: 'category',
+            dataIndex: 'categoryName',
+            key: 'categoryName',
+            sorter: (a, b) => a.categoryName.length - b.categoryName.length,
+            sortOrder: sortedInfo.columnKey === 'categoryName' && sortedInfo.order,
+            ellipsis: true,
         },
         {
-            title: 'description',
-            dataIndex: 'description',
-            key: 'description',
+            title: 'creator',
+            // dataIndex: 'creator',
+            key: 'creator',
             render: (text, record, index) => {
-                let contentJSX = parse(text);
-
-                return <div>
-                    {contentJSX}
-                </div>
-            }
+                return <Tag color="green">{record.creator?.name}</Tag>
+            },
         },
         {
             title: 'Action',
@@ -90,7 +111,14 @@ export default function ProjectManagement(props) {
             key: 'x',
             render: (text, record, index) => {
                 return <div>
-                    <button className="btn mr-2 btn-primary">
+                    <button onClick={()=>{
+                       const action= {
+                        type: 'OPEN_FORM_EDIT_PROJECT',
+                        Component: <FormEditProject/>,
+                        
+                       }
+                       dispatch(action)
+                    }} className="btn mr-2 btn-primary">
                         <FormOutlined style={{ fontSize: 17 }} />
                     </button>
                     <button className="btn btn-danger">

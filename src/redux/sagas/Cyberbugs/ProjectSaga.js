@@ -1,7 +1,7 @@
 import { call, delay, put, takeLatest } from "redux-saga/effects";
 import { cyberbugsService } from "../../../services/CyberbugsService";
 import { STATUS_CODE } from "../../../util/constants/settingSystem";
-import { CREAT_PROJECT_SAGA, GET_ALL_PROJECT_CATEGORY_SAGA, GET_LIST_PROJECT_SAGA, GET_PROJECT_LIST } from "../../type/CyberBugs/CyberBugs";
+import { CREAT_PROJECT_SAGA, GET_ALL_PROJECT_CATEGORY_SAGA, GET_LIST_PROJECT_SAGA, GET_PROJECT_LIST, GET_PROJECT_LIST_SAGA, SET_PROJECT_LIST } from "../../type/CyberBugs/CyberBugs";
 import { DISPLAY_LOADING, HIDE_LOADING } from "../../type/LoadingConst";
 
 
@@ -43,7 +43,7 @@ function* getListProjectSaga(action) {
         console.log('data',data)
         if (status === STATUS_CODE.SUCCESS) {
             yield put({
-                type: GET_PROJECT_LIST,
+                type: SET_PROJECT_LIST,
                 projectList: data.content
             })
         }
@@ -57,5 +57,5 @@ function* getListProjectSaga(action) {
 
 }
 export function* theoDoiGetListProjectSaga() {
-    yield takeLatest(GET_PROJECT_LIST, getListProjectSaga)
+    yield takeLatest(GET_PROJECT_LIST_SAGA, getListProjectSaga)
 }

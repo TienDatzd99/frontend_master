@@ -15,15 +15,15 @@ const CyberbugsTemplate = ({ Component }) => {
 
   return (
 
-
-    <Layout >
-      <div className="jira">
-        <SidebarCyberbugs />
+    <div className="jira">
+      <Layout><SidebarCyberbugs />
         <MenuCyberbugs />
+
         <Component />
-        <ModalCyberBugs />
-      </div>
-    </Layout>
+      </Layout>
+      <ModalCyberBugs />
+    </div>
+
   )
 }
 

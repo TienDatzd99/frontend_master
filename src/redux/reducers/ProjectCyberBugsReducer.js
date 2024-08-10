@@ -1,4 +1,4 @@
-import { GET_PROJECT_LIST } from "../type/CyberBugs/CyberBugs"
+import {  SET_PROJECT_LIST } from "../type/CyberBugs/CyberBugs"
 
 const stateDefault = {
     projectList: [
@@ -9,7 +9,7 @@ const stateDefault = {
 
 export const ProjectCyberBugsReducer = (state = stateDefault, action) => {
     switch (action.type) {
-        case GET_PROJECT_LIST: {
+        case SET_PROJECT_LIST: {
             return {
                 ...state,
                 projectList: action.projectList
