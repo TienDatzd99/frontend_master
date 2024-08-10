@@ -3,8 +3,8 @@ const initialState = {
         "id":1,
         "projectName": "string",
         "creator": 0,
-        "description": "string",
-        "categoryId": "string",
+        "description": "<h1>dsfsdff</h1>",
+        "categoryId": 2,
       
     }
 }
