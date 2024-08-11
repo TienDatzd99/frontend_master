@@ -2,6 +2,7 @@ import React, { Component, useEffect, useState } from 'react'
 import { Table, Tag, Space, Button } from 'antd';
 import { FormOutlined, DeleteOutlined } from '@ant-design/icons'
 import parse from 'html-react-parser';
+import { message, Popconfirm } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_PROJECT_LIST_SAGA } from '../../../redux/type/CyberBugs/CyberBugs';
 import FormEditProject from '../Form/FormEditProject/FormEditProject';
@@ -9,7 +10,14 @@ import FormEditProject from '../Form/FormEditProject/FormEditProject';
 
 
 
-
+const confirm = (e) => {
+    console.log(e);
+    message.success('Click on Yes');
+};
+const cancel = (e) => {
+    console.log(e);
+    message.error('Click on No');
+};
 
 export default function ProjectManagement(props) {
     const projectList = useSelector(state => state.ProjectCyberBugsReducer.projectList)
@@ -21,6 +29,7 @@ export default function ProjectManagement(props) {
         sortedInfo: null,
     });
     useEffect(() => {
+
         dispatch({ type: GET_PROJECT_LIST_SAGA })
     }, [])
 
@@ -111,19 +120,43 @@ export default function ProjectManagement(props) {
             key: 'x',
             render: (text, record, index) => {
                 return <div>
-                    <button onClick={()=>{
-                       const action= {
-                        type: 'OPEN_FORM_EDIT_PROJECT',
-                        Component: <FormEditProject/>,
-                        
-                       }
-                       dispatch(action)
+                    <button onClick={() => {
+                        const action = {
+                            type: 'OPEN_FORM_EDIT_PROJECT',
+                            Component: <FormEditProject />,
+
+
+                        }
+                        dispatch(action)
+
+                        const actionEditProject = {
+                            type: 'EDIT_PROJECT',
+                            projectEditModel: record
+
+                        }
+
+                        dispatch(actionEditProject)
                     }} className="btn mr-2 btn-primary">
                         <FormOutlined style={{ fontSize: 17 }} />
                     </button>
-                    <button className="btn btn-danger">
-                        <DeleteOutlined style={{ fontSize: 17 }} />
-                    </button>
+                    <Popconfirm
+                        title="Delete the task"
+                        description="Are you sure to delete this task?"
+                        onConfirm={() => {
+                            dispatch({
+                                type: 'DELETE_PROJECT_SAGA',
+                                idProject: record.id
+                            });
+                        }}
+                        onCancel={cancel}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <button className="btn btn-danger">
+                            <DeleteOutlined style={{ fontSize: 17 }} />
+                        </button>
+                    </Popconfirm>
+
                 </div>
             },
         }

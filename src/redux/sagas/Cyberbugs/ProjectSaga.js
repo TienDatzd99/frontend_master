@@ -3,6 +3,7 @@ import { cyberbugsService } from "../../../services/CyberbugsService";
 import { STATUS_CODE } from "../../../util/constants/settingSystem";
 import { CREAT_PROJECT_SAGA, GET_ALL_PROJECT_CATEGORY_SAGA, GET_LIST_PROJECT_SAGA, GET_PROJECT_LIST, GET_PROJECT_LIST_SAGA, SET_PROJECT_LIST } from "../../type/CyberBugs/CyberBugs";
 import { DISPLAY_LOADING, HIDE_LOADING } from "../../type/LoadingConst";
+import { projectService, ProjectService } from "../../../services/ProjectService";
 
 
 function* createProjectSaga(action) {
@@ -13,7 +14,7 @@ function* createProjectSaga(action) {
     try {
         const { data, status } = yield call(() => cyberbugsService.createProjectAuthorization(action.newProject))
 
-        console.log('data', data)
+
         // if (status === STATUS_CODE.SUCCESS) {
         //     yield put({
         //         type: CREAT_PROJECT_SAGA,
@@ -40,7 +41,7 @@ function* getListProjectSaga(action) {
 
 
         const { data, status } = yield call(() => cyberbugsService.getListProject());
-        console.log('data',data)
+        console.log(data)
         if (status === STATUS_CODE.SUCCESS) {
             yield put({
                 type: SET_PROJECT_LIST,
@@ -58,4 +59,52 @@ function* getListProjectSaga(action) {
 }
 export function* theoDoiGetListProjectSaga() {
     yield takeLatest(GET_PROJECT_LIST_SAGA, getListProjectSaga)
+}
+
+
+
+function* UpdateProject(action) {
+
+    try {
+
+
+        const { data, status } = yield call(() => cyberbugsService.UpdateProject(action.projectUpdate));
+
+        if (status === STATUS_CODE.SUCCESS) {
+
+        }
+        yield put({
+            type: SET_PROJECT_LIST
+        })
+        yield put({
+            type: 'CLOSE_DRAWER'
+        })
+
+    } catch (err) {
+        console.log(err)
+    }
+
+
+}
+export function* theoDoiUpdateProjectSaga() {
+    yield takeLatest('UPDATE_PROJECT_SAGA', UpdateProject)
+}
+function* DeleteProject(action) {
+    try {
+
+        console.log(action)
+        const { data, status } = yield call(() => projectService.deleteProject(action.idProject));
+
+        if (status === STATUS_CODE.SUCCESS) {
+
+        }
+        yield call(getListProjectSaga)
+
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+export function* theoDoiDeleteProject() {
+    yield takeLatest('DELETE_PROJECT_SAGA', DeleteProject)
 }

@@ -23,7 +23,7 @@ export const DrawerCyberbugsReducer = (state = initialState, action) => {
 
             };
         case 'OPEN_FORM_EDIT_PROJECT': {
-            console.log(action.Component)
+         
             return {
                 ...state,
                 isOpen: true,
@@ -37,7 +37,7 @@ export const DrawerCyberbugsReducer = (state = initialState, action) => {
             console.log(action)
             return {
                 ...state,
-                callBackSubmit: action.submitForm
+                callBackSubmit: action.submitFunction
             }
         }
         default:

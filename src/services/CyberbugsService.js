@@ -31,11 +31,19 @@ export const cyberbugsService = {
             data: newProject,
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem(TOKEN) }
         })
-    },
+    },      
     getListProject: () => {
         return axios({
             url: `${DOMAIN_CYBERBUG}/Project/getAllProject`,
             method: 'GET',
+            headers: { 'Authorization': 'Bearer ' + localStorage.getItem(TOKEN) }
+        })
+    },
+    UpdateProject: (projectUpdate) => {
+        return axios({
+            url: `${DOMAIN_CYBERBUG}/Project/updateProject?projectId=${projectUpdate.id}`,
+            method: 'PUT',
+            data: projectUpdate,
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem(TOKEN) }
         })
     }

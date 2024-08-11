@@ -29,10 +29,7 @@ function FormEditProject(props) {
   } = props;
 
 
-  const submitForm = (e) => {
-    e.preventDefault();
-    alert('submit edit')
-  }
+ 
   useEffect(() => {
 
     dispatch({ type: GET_ALL_PROJECT_CATEGORY_SAGA })
@@ -118,28 +115,27 @@ const EditProjectForm = withFormik({
   enableReinitialize: true,
   mapPropsToValues: (props) => {
     const { projectList } = props;
-
-    console.log( props)
-    console.log(  projectList?.projectName)
-
     return {
       id: projectList?.id,
       projectName: projectList?.projectName,
-      creator: projectList?.creator,
       description: projectList?.description,
-      categoryId: projectList?.categoryId?.id
+      categoryId: projectList?.categoryId
     }
   },
   validationSchema: Yup.object().shape({
 
   }),
   handleSubmit: (values, { props, setSubmitting }) => {
-    console.log('values', values)
-
+    const action = {
+      type: 'UPDATE_PROJECT_SAGA',
+      projectUpdate: values
+    }
+    props.dispatch(action);
+    // console.log
 
   },
 
-  displayName: 'EditProjectForm',
+  displayName: '',
 })(FormEditProject);
 const mapStatetoProps = (state) => ({
   projectList: state.ProjectReducer.projectEditList

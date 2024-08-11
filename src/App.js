@@ -24,12 +24,14 @@ import indexCyberBugs from './redux/sagas/Cyberbugs/indexCyberBugs';
 import CreateProject from './pages/CyberBugs/CreateProject/CreateProject'
 import ProjectManagement from './pages/CyberBugs/ProjectManagement.js/ProjectManagement';
 import DrawerCyberBugs from './HOC/CyberbugsHOC/DrawerCyberBugs';
+import Notification from './components/Notification/Notification';
 
 function App() {
   
   return (
     <Router >
     <DrawerCyberBugs/>
+    <Notification/>
       <Modal />
       <Routes>
         <Route path="/home" element={<HomeTemplate Component={Home} />} />
