@@ -55,7 +55,7 @@ function* getUserSaga(action) {
         console.log(data)
 
         if (status === 200) {
-            yield put({ type: "GET_USER_SEARCH", userData: data });
+            yield put({ type: "GET_USER_SEARCH", userData: data.content });
           }
       
     }catch(err){ 
@@ -68,3 +68,5 @@ function* getUserSaga(action) {
 export function* theoDoiGetUser () {
     yield takeLatest("GET_USER_API", getUserSaga);
 }
+
+

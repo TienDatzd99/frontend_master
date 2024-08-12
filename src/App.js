@@ -20,7 +20,7 @@ import PageNOtFound from './pages/PageNotFound/PageNotFound';
 import UserLoginTemplate from './templates/HomeTemplate/UserLoginTemplate';
 import LoginCyberBug from './pages/CyberBugs/LoginCyberBug/LoginCyberBug';
 import  { CyberbugsTemplate } from './templates/HomeTemplate/CyberbugsTemplate';
-import indexCyberBugs from './redux/sagas/Cyberbugs/indexCyberBugs';
+import IndexCyberBugs from './redux/sagas/Cyberbugs/indexCyberBugs';
 import CreateProject from './pages/CyberBugs/CreateProject/CreateProject'
 import ProjectManagement from './pages/CyberBugs/ProjectManagement.js/ProjectManagement';
 import DrawerCyberBugs from './HOC/CyberbugsHOC/DrawerCyberBugs';
@@ -41,9 +41,10 @@ function App() {
         <Route path='/detail/:id' element={<HomeTemplate Component={Detail} />} />
         <Route path='/profile' element={<HomeTemplate Component={Profile} />} />
         <Route path='/todolistrfc' element={<HomeTemplate Component={TodolistRFC} />} />
-        <Route path='/cyberbugs' element={<CyberbugsTemplate Component={indexCyberBugs} />} />
+        <Route path='/cyberbugs' element={<CyberbugsTemplate Component={IndexCyberBugs} />} />
         <Route path='/todolist' element={<HomeTemplate Component={Todolist} />} />
         <Route path='/todolistredux' element={<HomeTemplate Component={ToDoListRedux} />} />
+        <Route path='/projectdetail/:id' element={<CyberbugsTemplate Component={IndexCyberBugs} />} />
        
         <Route path='/createproject' element={<CyberbugsTemplate Component={CreateProject} />} />
         <Route path='/projectmanagement' element={<CyberbugsTemplate Component={ProjectManagement} />} />

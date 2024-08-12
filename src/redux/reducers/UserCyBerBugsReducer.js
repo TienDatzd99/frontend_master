@@ -27,7 +27,7 @@ export const UserLoginCyberBugsReducer = (state = stateDefault,action) => {
         }
 
         case 'GET_USER_SEARCH' :{
-            state.userSearch = action.lstUserSearch;
+            state.userSearch = action.userData;
            
             return {...state}
         }

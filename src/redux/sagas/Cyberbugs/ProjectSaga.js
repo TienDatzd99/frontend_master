@@ -111,3 +111,22 @@ export function* theoDoiDeleteProject() {
     yield takeLatest('DELETE_PROJECT_SAGA', DeleteProject)
 }
 
+
+function* getProjectDetailSaga(action) {
+    try {
+
+        const { data, status } = yield call(() => projectService.getProjectDetail(action.projectId));
+        yield put({
+            type: 'PUT_PROJECT_DETAIL',
+            projectDetail: data
+        })
+
+    } catch (err) {
+        console.log(err)
+        
+    }
+}
+
+export function* theoDoiGetProjectDetail() {
+    yield takeLatest('GET_PROJECT_DETAIL', getProjectDetailSaga)
+}

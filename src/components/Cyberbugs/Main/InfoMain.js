@@ -1,9 +1,24 @@
 import React from 'react'
+import parse from 'html-react-parser';
+export default function InfoMain(props) {
 
-export default function InfoMain() {
+    const { projectDetail } = props
+
+    const renderAvatar = () => {
+        return props.members?.map((user, index) => {
+            return <div className='avatar'>
+                <img src={user.avatar} alt='user.avatar'></img>
+            </div>
+        })
+    }
     return (
         <>
-            <h3>Cyber Board</h3>
+            <h3>{projectDetail.content.projectName}</h3>
+
+            <section>
+                {parse(projectDetail.content.description)}
+            </section>
+
             <div className="info" style={{ display: 'flex' }}>
                 <div className="search-block">
                     <input className="search" />
@@ -14,10 +29,10 @@ export default function InfoMain() {
                         <img src={require('../../../assets/img/download (1).jfif')} alt='1' />
                     </div>
                     <div className="avatar">
-                    <img src={require('../../../assets/img/download (2).jfif')} alt='2' />
+                        <img src={require('../../../assets/img/download (2).jfif')} alt='2' />
                     </div>
                     <div className="avatar">
-                    <img src={require('../../../assets/img/download (3).jfif')} alt='3' />
+                        <img src={require('../../../assets/img/download (3).jfif')} alt='3' />
                     </div>
                 </div>
                 <div style={{ marginLeft: 20 }} className="text">Only My Issues</div>

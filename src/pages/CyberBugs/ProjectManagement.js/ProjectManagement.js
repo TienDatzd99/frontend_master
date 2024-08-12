@@ -8,6 +8,7 @@ import { GET_PROJECT_LIST_SAGA } from '../../../redux/type/CyberBugs/CyberBugs';
 import FormEditProject from '../Form/FormEditProject/FormEditProject';
 import { render } from '@testing-library/react';
 import { ConfigProvider, Popover } from 'antd';
+import { NavLink } from 'react-router-dom';
 
 
 
@@ -87,6 +88,9 @@ export default function ProjectManagement(props) {
             title: 'projectName',
             dataIndex: 'projectName',
             key: 'projectName',
+            render: (text, record, index) => {
+                return <NavLink to={`/projectdetail/${record.id}`}>{text} </NavLink>
+            },
             sorter: (a, b) => a.projectName.length - b.projectName.length,
             sortOrder: sortedInfo.columnKey === 'projectName' && sortedInfo.order,
             ellipsis: true,
@@ -152,7 +156,7 @@ export default function ProjectManagement(props) {
                                         type: 'GET_USER_API',
                                         keyWord: value
                                     })
-                                })
+                                },2000)
                               
 
                             }} />
