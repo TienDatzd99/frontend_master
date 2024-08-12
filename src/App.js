@@ -31,7 +31,7 @@ function App() {
   return (
     <Router >
     <DrawerCyberBugs/>
-    <Notification/>
+
       <Modal />
       <Routes>
         <Route path="/home" element={<HomeTemplate Component={Home} />} />

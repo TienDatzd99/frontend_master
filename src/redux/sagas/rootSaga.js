@@ -4,7 +4,7 @@ import { all } from "redux-saga/effects";
 import * as Cyberbugs from './Cyberbugs/UserCyberbugsSaga'
 import * as ProjectCategorySaga from './Cyberbugs/ProjectCategorySaga'
 import * as ProjectSaga from './Cyberbugs/ProjectSaga'
-
+import * as UserCyberbugsSaga from './Cyberbugs/UserCyberbugsSaga'
 export function* rootSaga() {
 
   yield all([
@@ -17,7 +17,8 @@ export function* rootSaga() {
     ProjectSaga.theoDoicreateProjectSaga(),
     ProjectSaga.theoDoiGetListProjectSaga(),
     ProjectSaga.theoDoiUpdateProjectSaga(),
-    ProjectSaga.theoDoiDeleteProject()
+    ProjectSaga.theoDoiDeleteProject(),
+    UserCyberbugsSaga.theoDoiGetUser(),
   ])
 
 

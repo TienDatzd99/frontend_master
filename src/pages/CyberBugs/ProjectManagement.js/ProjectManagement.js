@@ -1,12 +1,13 @@
-import React, { Component, useEffect, useState } from 'react'
-import { Table, Tag, Space, Button } from 'antd';
+import React, { Component, useEffect, useRef, useState } from 'react'
+import { Table, Tag, Space, Button, Avatar, AutoComplete } from 'antd';
 import { FormOutlined, DeleteOutlined } from '@ant-design/icons'
 import parse from 'html-react-parser';
 import { message, Popconfirm } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_PROJECT_LIST_SAGA } from '../../../redux/type/CyberBugs/CyberBugs';
 import FormEditProject from '../Form/FormEditProject/FormEditProject';
-
+import { render } from '@testing-library/react';
+import { ConfigProvider, Popover } from 'antd';
 
 
 
@@ -21,8 +22,12 @@ const cancel = (e) => {
 
 export default function ProjectManagement(props) {
     const projectList = useSelector(state => state.ProjectCyberBugsReducer.projectList)
+
+    const { userSearch } = useSelector(state => state.UserLoginCyberBugsReducer)
+
     const dispatch = useDispatch();
 
+    const searchRef = useRef(null);
 
     const [state, setState] = useState({
         filteredInfo: null,
@@ -112,6 +117,50 @@ export default function ProjectManagement(props) {
             key: 'creator',
             render: (text, record, index) => {
                 return <Tag color="green">{record.creator?.name}</Tag>
+            },
+        },
+        {
+            title: 'members',
+            key: 'members',
+            render: (text, record, index) => {
+                return <div>
+                    {record.members?.slice(0, 3).map((member, index) => {
+                        return <Avatar key={index} src={member.avatar} />
+                    })}
+
+                    {record.members?.length > 3 ? <Avatar>...</Avatar> : ''}
+
+                    <Popover placement="rightTop" title={"Add user"} content={() => {
+                        return <AutoComplete
+
+                            options={userSearch?.map((user, index) => {
+                                return { label: user.name, value: user.userId }
+                            })}
+
+
+                            onSelect={(value, option) => {
+                                console.log('userId', value);
+                                console.log('option', option)
+                            }}
+                            style={{ width: '100%' }} onSearch={(value) => {
+                                if( searchRef.current){
+                                    clearTimeout(searchRef.current)
+                                }
+
+                                searchRef.current = setTimeout(()=>{
+                                    dispatch({
+                                        type: 'GET_USER_API',
+                                        keyWord: value
+                                    })
+                                })
+                              
+
+                            }} />
+                    }} trigger="click">
+                        <Button style={{ borderRadius: '50%' }}>+</Button>
+                    </Popover>
+                </div>
+
             },
         },
         {

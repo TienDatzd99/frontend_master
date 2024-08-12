@@ -4,6 +4,7 @@ import { STATUS_CODE } from "../../../util/constants/settingSystem";
 import { CREAT_PROJECT_SAGA, GET_ALL_PROJECT_CATEGORY_SAGA, GET_LIST_PROJECT_SAGA, GET_PROJECT_LIST, GET_PROJECT_LIST_SAGA, SET_PROJECT_LIST } from "../../type/CyberBugs/CyberBugs";
 import { DISPLAY_LOADING, HIDE_LOADING } from "../../type/LoadingConst";
 import { projectService, ProjectService } from "../../../services/ProjectService";
+import { notifiFunction } from "../../../util/Notification/notificationcyberbugs";
 
 
 function* createProjectSaga(action) {
@@ -71,7 +72,7 @@ function* UpdateProject(action) {
         const { data, status } = yield call(() => cyberbugsService.UpdateProject(action.projectUpdate));
 
         if (status === STATUS_CODE.SUCCESS) {
-
+            yield put({ type: GET_PROJECT_LIST_SAGA });
         }
         yield put({
             type: SET_PROJECT_LIST
@@ -96,15 +97,17 @@ function* DeleteProject(action) {
         const { data, status } = yield call(() => projectService.deleteProject(action.idProject));
 
         if (status === STATUS_CODE.SUCCESS) {
-
+            notifiFunction('success','Delete project success')
         }
         yield call(getListProjectSaga)
 
     } catch (err) {
         console.log(err)
+        notifiFunction('error','Delete project error')
     }
 }
 
 export function* theoDoiDeleteProject() {
     yield takeLatest('DELETE_PROJECT_SAGA', DeleteProject)
 }
+
