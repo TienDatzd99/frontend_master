@@ -10,7 +10,8 @@ export default function HeaderMain(props) {
                     <li className="breadcrumb-item">Project</li>
                     <li className="breadcrumb-item">CyberLearn</li>
                     <li className="breadcrumb-item active" aria-current="page">
-                        {projectDetail.content.projectName}
+                        {projectDetail.projectName}
+
       </li>
                 </ol>
             </nav>

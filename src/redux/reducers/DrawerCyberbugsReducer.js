@@ -2,6 +2,7 @@
 import React from "react";
 const initialState = {
     isOpen: false,
+    title:'',
     ComponentContentDrawer: <div>Default</div>,
     callBackSubmit: (propsValue) => {
         alert('click demo!')
@@ -28,6 +29,7 @@ export const DrawerCyberbugsReducer = (state = initialState, action) => {
                 ...state,
                 isOpen: true,
                 ComponentContentDrawer: action.Component,
+                title : action.title,
 
 
             }
@@ -40,6 +42,20 @@ export const DrawerCyberbugsReducer = (state = initialState, action) => {
                 callBackSubmit: action.submitFunction
             }
         }
+        case 'OPEN_FORM_CREATE_TASK':{
+            return{...state,
+                isOpen: true,
+                title: action.title,
+                ComponentContentDrawer: action.Component
+            }
+        }
+        case 'SET_SUBMIT_CREATE_TASK': {
+            console.log(action.submitFunction)
+            return{...state,
+                callBackSubmit: action.submitFunction
+            }
+        }
+
         default:
             return state;
     }

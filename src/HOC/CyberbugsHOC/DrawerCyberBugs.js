@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const { Option } = Select;
 const App = () => {
-  const {isOpen,ComponentContentDrawer,callBackSubmit} = useSelector(state => state.DrawerCyberbugsReducer);
+  const {isOpen,title,ComponentContentDrawer,callBackSubmit} = useSelector(state => state.DrawerCyberbugsReducer);
 
   const dispatch = useDispatch();
  

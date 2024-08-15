@@ -10,12 +10,12 @@ export default function IndexCyberBugs() {
   const {projectDetail} = useSelector(state => state.ProjectReducer);
   const dispatch = useDispatch();
   const { id: projectId } = useParams();
-
-
+  console.log('projectDetail', projectDetail);
+console.log(projectId)
 
 
   useEffect(() => {
-    console.log('projectDetail', projectDetail);
+    
     dispatch({
       type: 'GET_PROJECT_DETAIL',
       projectId

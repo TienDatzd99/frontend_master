@@ -11,6 +11,12 @@ export class UserService extends baseService {
        return this.get(`Users/getUser?keyword=${keyWord}`);
     }
 
+    assignUserProject = (userProject) =>{
+        return this.post(`Project/assignUserProject`,userProject)
+    }
+    getUserbyProjectId = (idProject)=>{
+        return this.get(`Users/getUserByProjectId?idProject=${idProject}`)
+    }
 
 }
 

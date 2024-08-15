@@ -16,9 +16,9 @@ const CyberbugsTemplate = ({ Component }) => {
   return (
 
     <div className="jira">
-      <Layout><SidebarCyberbugs />
+      <Layout>
+        <SidebarCyberbugs />
         <MenuCyberbugs />
-
         <Component />
       </Layout>
       <ModalCyberBugs />

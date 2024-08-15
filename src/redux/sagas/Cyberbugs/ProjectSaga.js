@@ -5,6 +5,7 @@ import { CREAT_PROJECT_SAGA, GET_ALL_PROJECT_CATEGORY_SAGA, GET_LIST_PROJECT_SAG
 import { DISPLAY_LOADING, HIDE_LOADING } from "../../type/LoadingConst";
 import { projectService, ProjectService } from "../../../services/ProjectService";
 import { notifiFunction } from "../../../util/Notification/notificationcyberbugs";
+import { GET_USER_BY_PROJECT_ID_SAGA } from "../../type/CyberBugs/UserType";
 
 
 function* createProjectSaga(action) {
@@ -49,6 +50,7 @@ function* getListProjectSaga(action) {
                 projectList: data.content
             })
         }
+        yield put({ type: GET_USER_BY_PROJECT_ID_SAGA, idProject: data.content[0]?.id })
 
 
 
@@ -97,13 +99,13 @@ function* DeleteProject(action) {
         const { data, status } = yield call(() => projectService.deleteProject(action.idProject));
 
         if (status === STATUS_CODE.SUCCESS) {
-            notifiFunction('success','Delete project success')
+            notifiFunction('success', 'Delete project success')
         }
         yield call(getListProjectSaga)
 
     } catch (err) {
         console.log(err)
-        notifiFunction('error','Delete project error')
+        notifiFunction('error', 'Delete project error')
     }
 }
 
@@ -113,20 +115,56 @@ export function* theoDoiDeleteProject() {
 
 
 function* getProjectDetailSaga(action) {
-    try {
+    yield put({
+        type: DISPLAY_LOADING
+    })
+    yield delay(500);
 
+    try {
         const { data, status } = yield call(() => projectService.getProjectDetail(action.projectId));
+
+
+        //Lấy dữ liệu thành công thì đưa dữ liệu lên redux
         yield put({
             type: 'PUT_PROJECT_DETAIL',
-            projectDetail: data
+            projectDetail: data.content
         })
 
     } catch (err) {
-        console.log(err)
-        
+        console.log('404 not found !')
+
     }
+
+    yield put({
+        type: HIDE_LOADING
+    })
 }
 
 export function* theoDoiGetProjectDetail() {
     yield takeLatest('GET_PROJECT_DETAIL', getProjectDetailSaga)
 }
+
+
+// function* GetAllProjectSaga(action) {
+//     try {
+
+
+//         const { data, status } = yield call(() => projectService.getAllProject());
+//         console.log(data)
+//         if (status === STATUS_CODE.SUCCESS) {
+//             yield put({
+//                 type: "GET_ALL_PROJECT",
+//                 projectList: data.content
+//             })
+//         }
+
+
+
+//     } catch (err) {
+//         console.log(err)
+//     }
+
+
+// }
+// export function* theoDoiGetAllProjectSaga() {
+//     yield takeLatest("GET_ALL_PROJECT_SAGA", GetAllProjectSaga)

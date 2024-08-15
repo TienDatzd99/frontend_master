@@ -3,7 +3,7 @@ import parse from 'html-react-parser';
 export default function InfoMain(props) {
 
     const { projectDetail } = props
-
+    
     const renderAvatar = () => {
         return props.members?.map((user, index) => {
             return <div className='avatar'>
@@ -13,10 +13,10 @@ export default function InfoMain(props) {
     }
     return (
         <>
-            <h3>{projectDetail.content.projectName}</h3>
+            <h3>{projectDetail.projectName}</h3>
 
-            <section>
-                {parse(projectDetail.content.description)}
+            <section dangerouslySetInnerHTML={{ __html: projectDetail.description }}>
+                {/* {projectDetail.description} */}
             </section>
 
             <div className="info" style={{ display: 'flex' }}>

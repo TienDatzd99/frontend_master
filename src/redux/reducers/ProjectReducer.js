@@ -7,7 +7,8 @@ const initialState = {
     "categoryId": 2,
   },
   projectDetail: {
-    
+    content: "sddssd ",
+    projectName: 'sdasd'
   }
 }
 
@@ -20,6 +21,7 @@ export const ProjectReducer = (state = initialState, action) => {
       }
     }
     case 'PUT_PROJECT_DETAIL': {
+      console.log(action.projectDetail)
       return {
         ...state,
         projectDetail: action.projectDetail

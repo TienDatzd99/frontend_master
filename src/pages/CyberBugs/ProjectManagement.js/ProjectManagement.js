@@ -22,6 +22,9 @@ const cancel = (e) => {
 };
 
 export default function ProjectManagement(props) {
+
+const [value,setValue] = useState('')
+
     const projectList = useSelector(state => state.ProjectCyberBugsReducer.projectList)
 
     const { userSearch } = useSelector(state => state.UserLoginCyberBugsReducer)
@@ -138,13 +141,25 @@ export default function ProjectManagement(props) {
                         return <AutoComplete
 
                             options={userSearch?.map((user, index) => {
-                                return { label: user.name, value: user.userId }
+                                return { label: user.name, value: user.userId.toString() }
                             })}
+                            value ={value}
+                            onChange={(text)=>{
+                                setValue(text)
+                            }}
 
 
-                            onSelect={(value, option) => {
-                                console.log('userId', value);
-                                console.log('option', option)
+                            onSelect={(valueSeclect, option) => {
+                               setValue(option.label)
+
+                               dispatch({
+                                type:'ADD_USER_PROJECT_API',
+                                userProject:{
+                                    "projectId": record.id,
+                                    "userId": valueSeclect
+                                }
+                               })
+
                             }}
                             style={{ width: '100%' }} onSearch={(value) => {
                                 if( searchRef.current){
@@ -176,12 +191,14 @@ export default function ProjectManagement(props) {
                     <button onClick={() => {
                         const action = {
                             type: 'OPEN_FORM_EDIT_PROJECT',
+                            title:'Edit Project',
                             Component: <FormEditProject />,
 
 
                         }
                         dispatch(action)
 
+                        
                         const actionEditProject = {
                             type: 'EDIT_PROJECT',
                             projectEditModel: record
